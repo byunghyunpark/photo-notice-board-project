@@ -1,0 +1,4 @@
+coolsms-python-sdk==2.0.1
+Django==1.10.2
+Pillow==3.4.2
+requests==2.11.1
