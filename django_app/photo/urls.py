@@ -4,5 +4,5 @@ from photo import views
 
 
 urlpatterns = [
-    url(r'^$', views.album_list, name='album_list'),
+    url(r'^$', views.photo_list, name='photo_list'),
 ]
