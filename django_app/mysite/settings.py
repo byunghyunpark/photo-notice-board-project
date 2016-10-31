@@ -23,6 +23,9 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
+# Auth
+AUTH_USER_MODEL = 'member.MyUser'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
