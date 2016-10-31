@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect
 
@@ -7,5 +8,5 @@ __all__ = [
 
 def logout(request):
     auth_logout(request)
-    print('로그아웃')
+    messages.warning(request, '로그아웃')
     return redirect('photo:photo_list')

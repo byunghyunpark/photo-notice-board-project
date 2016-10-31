@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate as auth_authenticate, login as auth_login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -19,11 +20,11 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            print('로그인성공')
+            messages.success(request, '로그인 성공')
             return redirect(next_path)
 
         else:
-            print('로그인실패')
+            messages.error(request, '로그인 실패')
             return render(request, 'member/login.html')
 
     else:

@@ -43,8 +43,28 @@
     </div>
 </nav>
 
-{% block content %}
-{% endblock %}
+<div class="content container">
+    <div class="row">
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+            <div class="alert
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}alert-success
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}alert-info
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}alert-warning
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert-danger
+                {% endif %}" role="alert">
+                <span>{{ message }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="content-container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
