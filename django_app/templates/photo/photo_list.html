@@ -1,15 +1,20 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
+<a href="{% url 'photo:photo_add' %}" class="btn btn-primary btn-sm btn-top-right">
+    <span class="glyphicon glyphicon-plus"></span>
+    Add Phot
+</a>
 
-{% for photo in all_photo %}
 <div class="photo-list">
+    {% for photo in all_photo %}
     <div class="col-xs-6 col-md-3">
         <img src="{{ photo.img.url }}" alt="">
         <div>title: {{ photo.title }}</div>
         <div>description: {{ photo.description }}</div>
     </div>
+    {% endfor %}
 </div>
-{% endfor %}
+
 
 {% endblock %}}

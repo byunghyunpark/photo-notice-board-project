@@ -5,4 +5,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.photo_list, name='photo_list'),
+    url(r'^photo/add/$', views.photo_add, name='photo_add'),
 ]
