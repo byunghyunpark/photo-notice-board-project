@@ -19,3 +19,6 @@ class Photo(BaseModel):
     description = models.TextField(blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     img = models.ImageField(upload_to='photo')
+
+    def __str__(self):
+        return self.title
