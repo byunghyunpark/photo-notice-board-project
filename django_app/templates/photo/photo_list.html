@@ -2,6 +2,14 @@
 
 {% block content %}
 
-<p>album list!</p>
+{% for photo in all_photo %}
+<div class="photo-list">
+    <div class="col-xs-6 col-md-3">
+        <img src="{{ photo.img.url }}" alt="">
+        <div>title: {{ photo.title }}</div>
+        <div>description: {{ photo.description }}</div>
+    </div>
+</div>
+{% endfor %}
 
 {% endblock %}}
