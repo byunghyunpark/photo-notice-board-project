@@ -26,6 +26,12 @@ STATICFILES_DIRS = [
 # Auth
 AUTH_USER_MODEL = 'member.MyUser'
 
+
+# Media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 사용자 업로드 파일들이 저장되는 기본 경로
+MEDIA_URL = '/media/'  # MEDIA_ROOT에 저장된 파일들에 접근할 때의 URL
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
