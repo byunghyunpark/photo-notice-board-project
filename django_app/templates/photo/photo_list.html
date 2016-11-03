@@ -9,9 +9,14 @@
 <div class="photo-list">
     {% for photo in all_photo %}
     <div class="col-xs-6 col-md-3">
-        <img src="{{ photo.img.url }}" alt="">
-        <div>title: {{ photo.title }}</div>
-        <div>description: {{ photo.description }}</div>
+        <div class="thumbnail">
+            <img src="{{ photo.img.url }}" alt="">
+            <div class="caption">
+                <div>album: {{ photo.album }}</div>
+                <div>owner: {{ photo.owner.email }}</div>
+                <div>title: {{ photo.title }}</div>
+            </div>
+        </div>
     </div>
     {% endfor %}
 </div>
