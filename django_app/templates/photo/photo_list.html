@@ -19,14 +19,14 @@
                 <div>album: {{ photo.album }}</div>
                 <div>owner: {{ photo.owner.email }}</div>
                 <div>title: {{ photo.title }}</div>
-                <div class="like-counter">
-                    <form action="{% url 'photo:photo_like' pk=photo.pk like_type='like' %}">
+                <div class="like-container">
+                    <form action="{% url 'photo:photo_like' pk=photo.pk like_type='like' %}" class="like-form">
                         <button class="btn label">
                             <span class="glyphicon glyphicon-thumbs-up"></span>
                             <span>{{ photo.like_users.count }}</span>
                         </button>
                     </form>
-                    <form action="{% url 'photo:photo_like' pk=photo.pk like_type='dislike' %}">
+                    <form action="{% url 'photo:photo_like' pk=photo.pk like_type='dislike' %}" class="like-form">
                         <button class="btn label">
                             <span class="glyphicon glyphicon-thumbs-down"></span>
                             <span>{{ photo.dislike_users.count }}</span>
