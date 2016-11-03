@@ -19,6 +19,7 @@ def photo_list(request):
 
     context = {
         'all_photo': all_photo,
+        'user': request.user,
     }
     return render(request, 'photo/photo_list.html', context)
 

@@ -21,13 +21,21 @@
                 <div>title: {{ photo.title }}</div>
                 <div class="like-container">
                     <form action="{% url 'photo:photo_like' pk=photo.pk like_type='like' %}" class="like-form">
-                        <button class="btn label">
+                        <button class="btn label
+                            {% if user in photo.like_users.all %}label-info
+                            {% else %}label-default
+                            {% endif %}
+                        ">
                             <span class="glyphicon glyphicon-thumbs-up"></span>
                             <span>{{ photo.like_users.count }}</span>
                         </button>
                     </form>
                     <form action="{% url 'photo:photo_like' pk=photo.pk like_type='dislike' %}" class="like-form">
-                        <button class="btn label">
+                        <button class="btn label
+                            {% if user in photo.dislike_users.all %}label-danger
+                            {% else %}label-default
+                            {% endif %}
+                        ">
                             <span class="glyphicon glyphicon-thumbs-down"></span>
                             <span>{{ photo.dislike_users.count }}</span>
                         </button>
