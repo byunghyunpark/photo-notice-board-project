@@ -24,3 +24,32 @@ class PhotoAdd(forms.Form):
     )
     # 사진 없으면 error 출력
     file = forms.FileField(required=True)
+
+
+class PhotoAddMulti(forms.Form):
+
+    album = forms.ModelChoiceField(queryset=Album.objects.all(), empty_label="필수선택")
+    title = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    description = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    file = forms.FileField(
+        required=True,
+        widget=forms.ClearableFileInput(
+            attrs={
+                'multiple': True
+            }
+        )
+    )

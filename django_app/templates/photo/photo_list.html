@@ -5,6 +5,10 @@
     <span class="glyphicon glyphicon-plus"></span>
     Add Phot
 </a>
+<a href="{% url 'photo:photo_add_multi' %}" class="btn btn-primary btn-sm btn-top-right">
+    <span class="glyphicon glyphicon-plus"></span>
+    Add Multi Phot
+</a>
 
 <div class="photo-list">
     {% for photo in all_photo %}
