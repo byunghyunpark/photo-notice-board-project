@@ -1,15 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 
 from ..forms import PhotoAdd, PhotoAddMulti
-from ..models import Photo
+from ..models import Photo, PhotoLike, PhotoDislike
 
 __all__ = [
     'photo_list',
     'photo_add',
     'photo_add_multi',
+    'photo_like',
 ]
 
 
@@ -80,3 +81,36 @@ def photo_add_multi(request):
     else:
         form = PhotoAddMulti()
     return render(request, 'photo/photo_add.html', {'form': form})
+
+
+def photo_like(request, pk, like_type='like'):
+    photo = get_object_or_404(Photo, pk=pk)
+    user = request.user
+
+    # like_type에 따라 모델을 선택
+    like_model = PhotoLike if like_type == 'like' else PhotoDislike
+    opposite_model = PhotoDislike if like_type == 'like' else PhotoLike
+
+    # user가 클릭을 한 상태인가 확인
+    user_like_exist = like_model.objects.filter(
+        user=user,
+        photo=photo,
+    )
+
+    # user가 클릭한 상태이면 객체 삭제
+    if user_like_exist.exists():
+        user_like_exist.delete()
+
+    # user가 클릭한 상태가 아니면 객체 생성, 반대 객체 삭제
+    else:
+
+        like_model.objects.create(
+            user=user,
+            photo=photo,
+        )
+        opposite_model.objects.filter(
+            user=user,
+            photo=photo,
+        ).delete()
+
+    return redirect('photo:photo_list')
