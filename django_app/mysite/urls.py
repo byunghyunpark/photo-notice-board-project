@@ -20,6 +20,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('photo.urls', namespace='photo')),
+    url(r'^index/', include('photo.urls', namespace='photo')),
     url(r'^member/', include('member.urls', namespace='member')),
+    url('', include('social.apps.django_app.urls', namespace='social')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # 업로드된 이미지 경로부여

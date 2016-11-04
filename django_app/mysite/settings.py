@@ -11,11 +11,22 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import json
+DEBUG = True
 
 # Directories
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+
+# 설정파일 폴더
+CONF_DIR = os.path.join(BASE_DIR, '.conf')
+
+# json설정파일의 내용 불러오기
+config_file = open(os.path.join(CONF_DIR, 'settings_debug.json'))
+config = json.loads(config_file.read())
+config_file.close()
+
 
 # Static files
 STATIC_URL = '/static/'
@@ -25,6 +36,50 @@ STATICFILES_DIRS = [
 
 # Auth
 AUTH_USER_MODEL = 'member.MyUser'
+
+# SOCIAL_AUTH_LOGIN
+AUTHENTICATION_BACKENDS = (
+   'social.backends.facebook.FacebookOAuth2',
+   # 'social.backends.google.GoogleOAuth2',
+   # 'social.backends.twitter.TwitterOAuth',
+   'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/index/'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+# Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = config['facebook']['FACEBOOK_APP_ID']
+SOCIAL_AUTH_FACEBOOK_SECRET = config['facebook']['FACEBOOK_SECRET_CODE']
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+# FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'picture']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email, age_range'
+}
+
+# Google
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+
+# Twitter
+# SOCIAL_AUTH_TWITTER_KEY = ''
+# SOCIAL_AUTH_TWITTER_SECRET = ''
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    # 'social.pipeline.user.create_user',
+    'member.social.create_user', # 덮어씀
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
+)
 
 
 # Media files
@@ -39,7 +94,6 @@ MEDIA_URL = '/media/'  # MEDIA_ROOT에 저장된 파일들에 접근할 때의 U
 SECRET_KEY = 'w96ua%36%bu%qmgok7@gh1t4kevvt+9!yt=+1e$3@2-#*xyi6^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -53,6 +107,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
 
     'member',
     'photo',
@@ -83,6 +138,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
