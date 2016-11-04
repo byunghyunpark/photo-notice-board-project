@@ -13,7 +13,7 @@ def signup(request):
         form = SignupModelForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             messages.success(request, '회원가입 성공')
             return redirect('photo:photo_list')
     else:
