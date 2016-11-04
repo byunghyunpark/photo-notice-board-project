@@ -12,6 +12,7 @@ __all__ = [
     'photo_add',
     'photo_add_multi',
     'photo_like',
+    'photo_detail',
 ]
 
 
@@ -116,3 +117,8 @@ def photo_like(request, pk, like_type='like'):
         ).delete()
 
     return redirect('photo:photo_list')
+
+
+def photo_detail(request, pk):
+    photo = Photo.objects.get(pk=pk)
+    return render(request, 'photo/photo_detail.html', {'photo': photo})

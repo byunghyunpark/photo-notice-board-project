@@ -14,7 +14,7 @@
     {% for photo in photos %}
     <div class="col-xs-6 col-md-3">
         <div class="thumbnail">
-            <img src="{{ photo.img.crop.400x400 }}">
+            <a href="{% url 'photo:photo_detail' pk=photo.pk %}"><img src="{{ photo.img.crop.400x400 }}"></a>
             <div class="caption">
                 <div>album: {{ photo.album }}</div>
                 <div>owner: {{ photo.owner.email }}</div>
