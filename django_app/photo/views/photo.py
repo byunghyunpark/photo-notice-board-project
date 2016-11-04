@@ -13,6 +13,7 @@ __all__ = [
     'photo_add_multi',
     'photo_like',
     'photo_detail',
+    'photo_delete',
 ]
 
 
@@ -122,3 +123,12 @@ def photo_like(request, pk, like_type='like'):
 def photo_detail(request, pk):
     photo = Photo.objects.get(pk=pk)
     return render(request, 'photo/photo_detail.html', {'photo': photo})
+
+
+def photo_delete(request, pk):
+    print('1')
+    # instance = Photo.objects.filter(pk=pk)
+    # instance.img.crop['400x400'].clear_cashe()
+    # instance.img.crop['400x400'].delete()
+    # instance.delete()
+    return redirect('member:login')

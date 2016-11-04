@@ -2,11 +2,14 @@
 
 {% block content %}
 
-<p>[{{ photo.album }}] {{ photo.title }}</p>
-<img src="{{ photo.img.url }}" alt="">
-<p>owner : {{ photo.owner }}</p>
-<p>description : {{ photo.description }}</p>
-<p>like_count : {{ photo.like_users.count }}</p>
-<p>dislike_count : {{ photo.dislike_users.count }}</p>
+<div class="container">
+    <p>[{{ photo.album }}] {{ photo.title }}</p>
+    <img src="{{ photo.img.url }}" alt="">
+    <p>owner : {{ photo.owner }}</p>
+    <p>description : {{ photo.description }}</p>
+    <p>like_count : {{ photo.like_users.count }}</p>
+    <p>dislike_count : {{ photo.dislike_users.count }}</p>
+    <a href="{% url 'photo:photo_delete' pk=photo.pk %}" class="btn btn-danger">Photo Delete</a>
+</div>
 
 {% endblock %}}

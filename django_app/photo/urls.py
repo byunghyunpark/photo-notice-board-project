@@ -8,6 +8,6 @@ urlpatterns = [
     url(r'^photo/add/$', views.photo_add, name='photo_add'),
     url(r'^photo/add/multi/$', views.photo_add_multi, name='photo_add_multi'),
     url(r'^photo/(?P<pk>[0-9]+)/(?P<like_type>\w+)/$', views.photo_like, name='photo_like'),
-    url(r'^photo/(?P<pk>[0-9]+)$', views.photo_detail, name='photo_detail'),
-
+    url(r'^photo/(?P<pk>[0-9]+)/$', views.photo_detail, name='photo_detail'),
+    url(r'^photo/(?P<pk>[0-9]+)/delete/$', views.photo_delete, name='photo_delete'),
 ]
