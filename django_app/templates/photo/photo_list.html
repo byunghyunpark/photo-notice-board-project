@@ -1,11 +1,11 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
-<a href="{% url 'photo:photo_add' %}" class="btn btn-primary btn-sm btn-top-right">
+<a href="{% url 'photo:photo_add' %}" class="btn btn-primary btn-sm">
     <span class="glyphicon glyphicon-plus"></span>
     Add Phot
 </a>
-<a href="{% url 'photo:photo_add_multi' %}" class="btn btn-primary btn-sm btn-top-right">
+<a href="{% url 'photo:photo_add_multi' %}" class="btn btn-primary btn-sm">
     <span class="glyphicon glyphicon-plus"></span>
     Add Multi Phot
 </a>
@@ -45,24 +45,24 @@
         </div>
     </div>
     {% endfor %}
-    <nav>
-        <ul class="pager">
-            {% if photos.has_previous %}
-            <li>
-                <a href="?page={{ photos.previous_page_number }}">Prev</a>
-            </li>
-            {% endif %}
-            <li>
-                <a href="#">{{ photos.number }} of {{ photos.paginator.num_pages }}</a>
-            </li>
-            {% if photos.has_next %}
-            <li>
-                <a href="?page={{ photos.next_page_number }}">Next</a>
-            </li>
-              {% endif %}
-        </ul>
-    </nav>
 </div>
+<nav>
+    <ul class="pager">
+        {% if photos.has_previous %}
+        <li>
+            <a href="?page={{ photos.previous_page_number }}">Prev</a>
+        </li>
+        {% endif %}
+        <li>
+            <a href="#">{{ photos.number }} of {{ photos.paginator.num_pages }}</a>
+        </li>
+        {% if photos.has_next %}
+        <li>
+            <a href="?page={{ photos.next_page_number }}">Next</a>
+        </li>
+          {% endif %}
+    </ul>
+</nav>
 
 
 {% endblock %}}
