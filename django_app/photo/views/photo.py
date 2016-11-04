@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 
@@ -16,11 +17,21 @@ __all__ = [
 
 def photo_list(request):
     all_photo = Photo.objects.all().order_by('-created_date')
+    paginator = Paginator(all_photo, 16)
+
+    page = request.GET.get('page')
+    try:
+        photos = paginator.page(page)
+    except PageNotAnInteger:
+        photos = paginator.page(1)
+    except EmptyPage:
+        photos = paginator.page(paginator.num_pages)
 
     context = {
-        'all_photo': all_photo,
+        'photos': photos,
         'user': request.user,
     }
+
     return render(request, 'photo/photo_list.html', context)
 
 @login_required
@@ -46,16 +57,6 @@ def photo_add(request):
     else:
         form = PhotoAdd()
     return render(request, 'photo/photo_add.html', {'form': form})
-
-
-
-def photo_list(request):
-    all_photo = Photo.objects.all().order_by('-created_date')
-
-    context = {
-        'all_photo': all_photo,
-    }
-    return render(request, 'photo/photo_list.html', context)
 
 
 @login_required
