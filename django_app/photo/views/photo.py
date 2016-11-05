@@ -17,13 +17,15 @@ __all__ = [
 
 
 def photo_list(request):
-    albums = Album.objects.all()
 
-    try:
-        sca = request.GET['sca']
-        all_photo = Photo.objects.filter(album__title=sca).order_by('-created_date')
-    except:
+    # 엘범필터
+    albums = Album.objects.all()
+    sca = request.GET.get('sca')
+    if sca == None:
         all_photo = Photo.objects.all().order_by('-created_date')
+    else:
+        all_photo = Photo.objects.filter(album__title=sca).order_by('-created_date')
+    # 엘범필터 끝
 
     paginator = Paginator(all_photo, 16)
 
