@@ -19,6 +19,8 @@
                 <div>album: {{ photo.album }}</div>
                 <div>owner: {{ photo.owner.email }}</div>
                 <div>title: {{ photo.title }}</div>
+                <div>description: {{ photo.description|truncatechars:20 }}</div>
+                <div>comment: {{ photo.comment_set.count }}</div>
                 <div class="like-container">
                     <form action="{% url 'photo:photo_like' pk=photo.pk like_type='like' %}" class="like-form">
                         <button class="btn label
