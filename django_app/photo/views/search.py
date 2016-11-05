@@ -30,7 +30,7 @@ def photo_search(request):
         photos = paginator.page(paginator.num_pages)
 
     context = {
-        'albums': albums,ㅂ
+        'albums': albums,
         'photos': photos,
         'user': request.user,
     }
