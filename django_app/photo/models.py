@@ -39,3 +39,9 @@ class PhotoLike(BaseModel):
 class PhotoDislike(BaseModel):
     photo = models.ForeignKey(Photo)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
+
+
+class Comment(BaseModel):
+    photo = models.ForeignKey(Photo)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
+    content = models.TextField()

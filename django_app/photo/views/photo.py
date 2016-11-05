@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 
 from ..forms import PhotoAdd, PhotoAddMulti
-from ..models import Photo, PhotoLike, PhotoDislike
+from ..models import Photo, PhotoLike, PhotoDislike, Comment
 
 __all__ = [
     'photo_list',
@@ -14,6 +14,7 @@ __all__ = [
     'photo_like',
     'photo_detail',
     'photo_delete',
+    'add_comment',
 ]
 
 
@@ -122,7 +123,12 @@ def photo_like(request, pk, like_type='like'):
 
 def photo_detail(request, pk):
     photo = Photo.objects.get(pk=pk)
-    return render(request, 'photo/photo_detail.html', {'photo': photo})
+    comments = photo.comment_set.order_by('-created_date')
+    context = {
+        'photo': photo,
+        'comments': comments,
+    }
+    return render(request, 'photo/photo_detail.html', context)
 
 
 def photo_delete(request, pk):
@@ -131,4 +137,18 @@ def photo_delete(request, pk):
     # instance.img.crop['400x400'].clear_cashe()
     # instance.img.crop['400x400'].delete()
     # instance.delete()
-    return redirect('member:login')
+    return render(request, 'member/login.html', {})
+
+def add_comment(request, pk):
+    if request.method == 'POST':
+        photo = Photo.objects.get(pk=pk)
+        owner = request.user
+        content = request.POST['content']
+
+        Comment.objects.create(
+            photo=photo,
+            owner=owner,
+            content=content,
+        )
+        messages.success(request, '댓글을 달았습니다')
+        return redirect('photo:photo_detail', pk=photo.pk)

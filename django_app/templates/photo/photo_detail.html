@@ -11,5 +11,17 @@
     <p>dislike_count : {{ photo.dislike_users.count }}</p>
     <a href="{% url 'photo:photo_delete' pk=photo.pk %}" class="btn btn-danger">Photo Delete</a>
 </div>
+<div class="comment-container container">
+    <h4>댓글 목록</h4>
+    {% for comment in comments %}
+        <p>{{ comment.owner }} | {{ comment.content }} | {{ comment.created_date }}</p>
+    {% endfor %}
 
+    <h4>댓글 작성</h4>
+    <form action="{% url 'photo:add_comment' pk=photo.pk %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="content" class="form-control">
+        <button type="submit" class="btn btn-default">저장</button>
+    </form>
+</div>
 {% endblock %}}
