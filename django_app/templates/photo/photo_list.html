@@ -1,6 +1,12 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
+
+<a href="{% url 'photo:photo_list' %}" class="btn btn-default btn-sm">전체</a>
+{% for album in albums %}
+<a href="{% url 'photo:photo_list' %}?sca={{ album }}" class="btn btn-default btn-sm">{{ album }}</a>
+{% endfor %}
+
 <a href="{% url 'photo:photo_add' %}" class="btn btn-primary btn-sm">
     <span class="glyphicon glyphicon-plus"></span>
     Add Photo
@@ -19,7 +25,7 @@
                 <div>album: {{ photo.album }}</div>
                 <div>owner: {{ photo.owner.email }}</div>
                 <div>title: {{ photo.title }}</div>
-                <div>description: {{ photo.description|truncatechars:20 }}</div>
+                <div>description: {{ photo.description|truncatechars:10 }}</div>
                 <div>comment: {{ photo.comment_set.count }}</div>
                 <div class="like-container">
                     <form action="{% url 'photo:photo_like' pk=photo.pk like_type='like' %}" class="like-form">

@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, get_object_or_404
 
 from ..forms import PhotoAdd, PhotoAddMulti
-from ..models import Photo, PhotoLike, PhotoDislike
+from ..models import Photo, PhotoLike, PhotoDislike, Album
 
 __all__ = [
     'photo_list',
@@ -17,7 +17,14 @@ __all__ = [
 
 
 def photo_list(request):
-    all_photo = Photo.objects.all().order_by('-created_date')
+    albums = Album.objects.all()
+
+    try:
+        sca = request.GET['sca']
+        all_photo = Photo.objects.filter(album__title=sca).order_by('-created_date')
+    except:
+        all_photo = Photo.objects.all().order_by('-created_date')
+
     paginator = Paginator(all_photo, 16)
 
     page = request.GET.get('page')
@@ -29,6 +36,7 @@ def photo_list(request):
         photos = paginator.page(paginator.num_pages)
 
     context = {
+        'albums': albums,
         'photos': photos,
         'user': request.user,
     }
