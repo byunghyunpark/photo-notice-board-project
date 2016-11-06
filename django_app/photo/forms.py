@@ -63,7 +63,7 @@ class CommentAdd(forms.ModelForm):
             'content'
         }
         widgets = {
-            'content': forms.Textarea(attrs={'class': 'form-control'})
+            'content': forms.TextInput(attrs={'class': 'form-control'})
         }
 
 

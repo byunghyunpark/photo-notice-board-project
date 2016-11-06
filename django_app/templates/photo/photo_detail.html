@@ -2,21 +2,23 @@
 
 {% block content %}
 
-<div class="container">
-    <p>[{{ photo.album }}] {{ photo.title }}</p>
-    <img src="{{ photo.img.url }}" alt="">
-    <p>owner : {{ photo.owner }}</p>
-    <p>description : {{ photo.description }}</p>
-    <p>like_count : {{ photo.like_users.count }}</p>
-    <p>dislike_count : {{ photo.dislike_users.count }}</p>
+<div class="col-xs-12 photo-container">
+    <div class="thumbnail">
+        <img src="{{ photo.img.url }}" alt="">
+        <div class="caption">
+            <p>[{{ photo.album }}] {{ photo.title }}</p>
+            <p>owner : {{ photo.owner }}</p>
+            <p>description : {{ photo.description }}</p>
+            <p>like_count : {{ photo.like_users.count }}</p>
+            <p>dislike_count : {{ photo.dislike_users.count }}</p>
+            {% if user == photo.owner %}
+            <a href="{% url 'photo:photo_edit' photo_pk=photo.pk %}" class="btn btn-sm btn-primary">edit</a>
+            <a href="{% url 'photo:photo_delete' photo_pk=photo.pk %}" class="btn btn-sm btn-danger">delete</a>
+            {% endif %}
+        </div>
+    </div>
 </div>
 
-{% if user == photo.owner %}
-<div class="container">
-    <a href="{% url 'photo:photo_edit' photo_pk=photo.pk %}" class="btn btn-sm btn-primary">edit</a>
-    <a href="{% url 'photo:photo_delete' photo_pk=photo.pk %}" class="btn btn-sm btn-danger">delete</a>
-</div>
-{% endif %}
 
 <div class="comment-container container">
     <h4>댓글 목록</h4>

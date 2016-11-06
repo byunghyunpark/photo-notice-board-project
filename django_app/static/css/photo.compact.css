@@ -2,4 +2,6 @@
 
 .like-container form.like-form { display: inline; }
 
+.photo-container { word-wrap: break-word; }
+
 /*# sourceMappingURL=photo.compact.css.map */
