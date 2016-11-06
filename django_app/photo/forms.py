@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Photo, Album
+from .models import Photo, Album, Comment
 
 
 class PhotoAdd(forms.Form):
@@ -53,3 +53,15 @@ class PhotoAddMulti(forms.Form):
             }
         )
     )
+
+
+class CommentAdd(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = {
+            'content'
+        }
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'form-control'})
+        }

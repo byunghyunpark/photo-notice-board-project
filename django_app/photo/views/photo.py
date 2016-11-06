@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, get_object_or_404
 
-from ..forms import PhotoAdd, PhotoAddMulti
+from ..forms import PhotoAdd, PhotoAddMulti, CommentAdd
 from ..models import Photo, PhotoLike, PhotoDislike, Album
 
 __all__ = [
@@ -133,10 +133,12 @@ def photo_detail(request, pk):
     photo = Photo.objects.get(pk=pk)
     comments = photo.comment_set.order_by('-created_date')
     user = request.user
+    form = CommentAdd()
     context = {
         'user': user,
         'photo': photo,
         'comments': comments,
+        'form': form,
     }
     return render(request, 'photo/photo_detail.html', context)
 
