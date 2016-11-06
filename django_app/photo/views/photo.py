@@ -96,6 +96,7 @@ def photo_add_multi(request):
     return render(request, 'photo/photo_add.html', {'form': form})
 
 
+@login_required
 def photo_like(request, pk, like_type='like'):
     photo = get_object_or_404(Photo, pk=pk)
     user = request.user

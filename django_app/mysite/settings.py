@@ -81,6 +81,9 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.user_details'
 )
 
+# @login_required 실패시 redirect url 설정
+LOGIN_URL = '/member/login/'
+
 
 # Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 사용자 업로드 파일들이 저장되는 기본 경로
