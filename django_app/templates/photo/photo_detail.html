@@ -14,7 +14,15 @@
 <div class="comment-container container">
     <h4>댓글 목록</h4>
     {% for comment in comments %}
-        <p>{{ comment.owner }} | {{ comment.content }} | {{ comment.created_date }}</p>
+        <p>{{ comment.owner }} | {{ comment.content }} | {{ comment.created_date }}
+            <!--댓글 삭제버튼-->
+            {% if user == comment.owner %}
+            <a href="{% url 'photo:comment_delete' comment_pk=comment.pk photo_pk=photo.pk%}">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+            {% endif %}
+            <!--댓글 삭제버튼 끝-->
+        </p>
     {% endfor %}
 
     <h4>댓글 작성</h4>

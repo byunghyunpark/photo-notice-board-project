@@ -132,7 +132,9 @@ def photo_like(request, pk, like_type='like'):
 def photo_detail(request, pk):
     photo = Photo.objects.get(pk=pk)
     comments = photo.comment_set.order_by('-created_date')
+    user = request.user
     context = {
+        'user': user,
         'photo': photo,
         'comments': comments,
     }

@@ -5,6 +5,7 @@ from ..models import Photo, Comment
 
 __all__ = [
     'add_comment',
+    'comment_delete',
 ]
 
 def add_comment(request, pk):
@@ -22,3 +23,8 @@ def add_comment(request, pk):
         return redirect('photo:photo_detail', pk=photo.pk)
 
 
+def comment_delete(request, photo_pk, comment_pk):
+    comment = Comment.objects.get(pk=comment_pk)
+    comment.delete()
+    messages.success(request, '댓글이 삭제되었습니다')
+    return redirect('photo:photo_detail', pk=photo_pk)
