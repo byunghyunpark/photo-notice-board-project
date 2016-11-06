@@ -9,8 +9,14 @@
     <p>description : {{ photo.description }}</p>
     <p>like_count : {{ photo.like_users.count }}</p>
     <p>dislike_count : {{ photo.dislike_users.count }}</p>
-    <a href="{% url 'photo:photo_delete' pk=photo.pk %}" class="btn btn-danger">Photo Delete</a>
 </div>
+
+{% if user == photo.owner %}
+<div class="container">
+    <a href="{% url 'photo:photo_delete' photo_pk=photo.pk %}" class="btn btn-sm btn-danger">delete</a>
+</div>
+{% endif %}
+
 <div class="comment-container container">
     <h4>댓글 목록</h4>
     {% for comment in comments %}

@@ -144,10 +144,7 @@ def photo_detail(request, pk):
     return render(request, 'photo/photo_detail.html', context)
 
 
-def photo_delete(request, pk):
-    print('1')
-    # instance = Photo.objects.filter(pk=pk)
-    # instance.img.crop['400x400'].clear_cashe()
-    # instance.img.crop['400x400'].delete()
-    # instance.delete()
-    return render(request, 'member/login.html', {})
+def photo_delete(request, photo_pk):
+    p1 = Photo.objects.get(pk=photo_pk)
+    p1.delete()
+    return redirect('photo:photo_list')
