@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, get_object_or_404
 
-from ..forms import PhotoAdd, PhotoAddMulti, CommentAdd
+from ..forms import PhotoAdd, PhotoAddMulti, CommentAdd, PhotoEdit
 from ..models import Photo, PhotoLike, PhotoDislike, Album
 
 __all__ = [
@@ -13,6 +13,7 @@ __all__ = [
     'photo_like',
     'photo_detail',
     'photo_delete',
+    'photo_edit',
 ]
 
 
@@ -150,3 +151,19 @@ def photo_delete(request, photo_pk):
     p1.img.delete()
     p1.delete()
     return redirect('photo:photo_list')
+
+
+def photo_edit(request, photo_pk):
+    photo = get_object_or_404(Photo, pk=photo_pk)
+    if request.method == 'POST':
+        form = PhotoEdit(request.POST, instance=photo)
+        if form.is_valid():
+            photo = form.save(commit=False)
+            photo.title = form.cleaned_data['title']
+            photo.description = form.cleaned_data['description']
+            messages.success(request, '사진수정 성공')
+            photo.save()
+            return redirect('photo:photo_detail', pk=photo_pk)
+    else:
+        form = PhotoEdit(instance=photo)
+        return render(request, 'photo/photo_add.html', {'form': form})

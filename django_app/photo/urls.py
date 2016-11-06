@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^photo/(?P<photo_pk>[0-9]+)/comment/delete/(?P<comment_pk>[0-9]+)/$', views.comment_delete, name='comment_delete'),
     url(r'^photo/(?P<photo_pk>[0-9]+)/comment/edit/(?P<comment_pk>[0-9]+)/$', views.comment_edit, name='comment_edit'),
     url(r'photo/(?P<photo_pk>[0-9]+)/delete', views.photo_delete, name='photo_delete'),
+    url(r'photo/(?P<photo_pk>[0-9]+)/edit', views.photo_edit, name='photo_edit'),
 ]

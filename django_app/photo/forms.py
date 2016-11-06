@@ -65,3 +65,17 @@ class CommentAdd(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'class': 'form-control'})
         }
+
+
+class PhotoEdit(forms.ModelForm):
+
+    class Meta:
+        model = Photo
+        fields = {
+            'title',
+            'description',
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.TextInput(attrs={'class': 'form-control'}),
+        }
