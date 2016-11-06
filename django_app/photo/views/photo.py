@@ -146,5 +146,7 @@ def photo_detail(request, pk):
 
 def photo_delete(request, photo_pk):
     p1 = Photo.objects.get(pk=photo_pk)
+    p1.img.crop['400x400'].delete()
+    p1.img.delete()
     p1.delete()
     return redirect('photo:photo_list')
